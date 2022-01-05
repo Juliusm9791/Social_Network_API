@@ -1,0 +1,29 @@
+{
+  "name": "social_network_api",
+  "version": "1.0.0",
+  "description": "social network api",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  },
+  "scripts": {
+    "start": "node index",
+    "seed": "node utils/seed",
+    "dev": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juliusm9791/Social_Network_API.git"
+  },
+  "author": "Julius Markauskas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Juliusm9791/Social_Network_API/issues"
+  },
+  "homepage": "https://github.com/Juliusm9791/Social_Network_API#readme"
+}
