@@ -1,6 +1,4 @@
 const { Schema, model } = require('mongoose');
-//const assignmentSchema = require('./Assignment');
-// const thoughtSchema = require('./thought');
 
 // Schema to create User
 const userSchema = new Schema(
@@ -38,13 +36,14 @@ const userSchema = new Schema(
             getters: true,
             virtuals: true,
         },
+        id: false,
     }
 );
 
 userSchema
     .virtual('friends')
     .get(function () {
-        return `${this.friendsId.lenght} 111`;
+        return this.friendsId.length;
     });
 
 const User = model('user', userSchema);

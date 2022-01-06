@@ -18,26 +18,26 @@ const { User, Thought } = require('../models');
 //   ]);
 
 module.exports = {
-  // Get all users
-  getUsers(req, res) {
-    User.find()
-      .then(async (users) => {
-        return res.json(users);
+  // Get all Thoughts
+  getThoughts(req, res) {
+    Thought.find()
+      .then(async (thoughts) => {
+        return res.json(thoughts);
       })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
-  // Get a single user
-  getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
+  // Get a single thoughts
+  getSingleThought(req, res) {
+    Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
-      .then(async (user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with that ID' })
+      .then(async (thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with that ID' })
           : res.json({
-              user
+            thought
               // grade: await grade(req.params.userId),
             })
       )
@@ -47,14 +47,14 @@ module.exports = {
       });
   },
   // create a new user
-  createUser(req, res) {
-    User.create(req.body)
-      .then((user) => res.json(user))
+  createThought(req, res) {
+    Thought.create(req.body)
+      .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
   // Delete a student and remove them from the course
-  deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
+  deleteThought(req, res) {
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
       // .then((user) =>
       //   !user
       //     ? res.status(404).json({ message: 'No such user exists' })
@@ -64,12 +64,12 @@ module.exports = {
       //         { new: true }
       //       )
       // )
-      .then((user) =>
-        !user
+      .then((thought) =>
+        !thought
           ? res.status(404).json({
-              message: 'No user found',
+              message: 'No thought found',
             })
-          : res.json({ message: 'User successfully deleted' })
+          : res.json({ message: 'Thought successfully deleted' })
       )
       .catch((err) => {
         console.log(err);
