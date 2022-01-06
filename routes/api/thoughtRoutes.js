@@ -7,7 +7,7 @@ const {
   deleteThought,
 } = require('../../controllers/thoughtController');
 
-// /api/courses
+// /api/thoughts
 router.route('/').get(getThoughts).post(createThought);
 
 // /api/courses/:thoughtId
