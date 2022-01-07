@@ -1,24 +1,7 @@
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of students overall
-// const headCount = async () =>
-//   Student.aggregate()
-//     .count('studentCount')
-//     .then((numberOfStudents) => numberOfStudents);
-
-// // Aggregate function for getting the overall grade using $avg
-// const grade = async (studentId) =>
-//   Student.aggregate([
-//     {
-//       $unwind: '$assignments',
-//     },
-//     {
-//       $group: { _id: studentId, overallGrade: { $avg: '$assignments.score' } },
-//     },
-//   ]);
-
 module.exports = {
-  // Get all Thoughts
+  // Get all thoughts
   getThoughts(req, res) {
     Thought.find()
       .then(async (thoughts) => {
@@ -36,23 +19,37 @@ module.exports = {
       .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json({
-            thought
-              // grade: await grade(req.params.userId),
-            })
+          : res.json({ thought })
       )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
-  // create a new user
+  // Create a new thought
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a student and remove them from the course
+    // Update a thought
+    updateThought(req, res) {
+      Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      )
+        .then((thought) =>
+          !thought
+            ? res.status(404).json({ message: 'No thought with that ID' })
+            : res.json(thought)
+        )
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
+        });
+    },
+  // Delete a thought and remove them from the course
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       // .then((user) =>
@@ -67,8 +64,8 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({
-              message: 'No thought found',
-            })
+            message: 'No thought found',
+          })
           : res.json({ message: 'Thought successfully deleted' })
       )
       .catch((err) => {
