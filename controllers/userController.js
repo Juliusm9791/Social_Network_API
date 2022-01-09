@@ -12,6 +12,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+
   // Get a single user
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
@@ -27,12 +28,14 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+
   // create a new user
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
+
   // Update a user
   updateUser(req, res) {
     User.findOneAndUpdate(
@@ -50,6 +53,7 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+
   // Delete a user
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
@@ -82,6 +86,7 @@ module.exports = {
         res.status(500).json(err)
       });
   },
+
   // Remove friend
   removeFriend(req, res) {
     User.findOneAndUpdate(

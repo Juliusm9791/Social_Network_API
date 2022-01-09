@@ -12,6 +12,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+
   // Get a single thoughts
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
@@ -26,6 +27,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+
   // Create a new thought and update user
   createThought(req, res) {
     Thought.create(req.body)
@@ -66,6 +68,7 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+
   // Delete a thought and update user 
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
@@ -73,7 +76,6 @@ module.exports = {
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
           : User.findOneAndUpdate(
-            // { _id: { $in: user.thoughts } }
             { username: thought.username },
             { $pull: { thoughts: thought._id } },
             { runValidators: true, new: true }
@@ -85,6 +87,7 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+
   // Add a reaction
   addReaction(req, res) {
     Thought.findOneAndUpdate(
@@ -102,6 +105,7 @@ module.exports = {
         res.status(500).json(err)
       });
   },
+
   // Remove reaction
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
@@ -116,5 +120,4 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
 };
