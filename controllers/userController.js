@@ -55,10 +55,9 @@ module.exports = {
     User.findOneAndRemove({ _id: req.params.userId })
       .then((user) =>
         !user
-          ? res.status(404).json({
-            message: 'No user found',
-          })
-          : res.json({ message: 'User successfully deleted' })
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+            .then(() => res.json({ message: 'User and thoughts deleted!' }))
       )
       .catch((err) => {
         console.log(err);

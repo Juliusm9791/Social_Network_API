@@ -26,12 +26,29 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Create a new thought
+  // Create a new thought and update user
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
-      .catch((err) => res.status(500).json(err));
+      .then((thought) => {
+        return User.findOneAndUpdate(
+          { username: req.body.username },
+          { $addToSet: { thoughts: thought._id } },
+          { new: true }
+        );
+      })
+      .then((user) =>
+        !user
+          ? res.status(404).json({
+              message: 'Thought created, but no user with that username',
+            })
+          : res.json('Thought created')
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
+
   // Update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
