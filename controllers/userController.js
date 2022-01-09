@@ -4,12 +4,12 @@ module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
-      .then(async (users) => {
-        return res.json(users);
+      .then((users) => {
+        res.json(users);
       })
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        res.status(500).json(err);
       });
   },
 
@@ -19,13 +19,13 @@ module.exports = {
       .select('-__v')
       .populate('thoughts')
       .populate('friends')
-      .then(async (user) =>
+      .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json({ user }))
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        res.status(500).json(err);
       });
   },
 
@@ -79,7 +79,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user)
+          : res.json({ message: 'Friend Added', user})
       )
       .catch((err) => {
         console.log(err);
@@ -97,7 +97,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user)
+          : res.json({ message: 'Friend Deleted', user})
       )
       .catch((err) => res.status(500).json(err));
   },
