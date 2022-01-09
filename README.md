@@ -24,7 +24,7 @@ Because this application is not deployed, you need to use 'Insomnia' to see func
 
   #### Demo video
 
-  [Social Network API Video Demonstration](https://drive.google.com/file/d/1dz4Xanaab1iGTJe5pSu1yz7YTlayHSYD/view?usp=sharing)
+  [Social Network API Video Demonstration](https://drive.google.com/file/d/1W9O86idFaQUJdazlUheAMHPBXABnHWRq/view?usp=sharing)
 
   #### For this project the following technologies were used:
   * Nodejs
